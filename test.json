@@ -1,0 +1,317 @@
+{
+  "blueprint": {
+    "isPrivate": false,
+    "status": "Ready",
+    "description": "",
+    "components": [
+      {
+        "id": "component-1778514502068-7541-1",
+        "displayName": "API Gateway",
+        "description": "APIGateway service",
+        "type": "APIManagement.PaaS.APIGateway",
+        "version": "1.0",
+        "parameters": "{}",
+        "dependencies": [],
+        "links": [
+          {
+            "componentId": "component-1778514508446-7744-2-group-0",
+            "settings": "{}"
+          }
+        ],
+        "outputFields": [],
+        "services": [
+          {
+            "displayName": "Ambassador",
+            "type": "APIManagement.PaaS.APIGateway",
+            "offers": [
+              {
+                "id": "APIManagement.PaaS.CloudFront",
+                "displayName": "Amazon CloudFront",
+                "provider": "AWS",
+                "config": "{\"awsRegion\":\"eu-west-1\",\"description\":\"REST API Gateway for application workloads\",\"apiKeySource\":\"HEADER\",\"binaryMediaTypes\":[\"application/json\",\"application/octet-stream\"],\"endpointConfiguration\":{\"types\":[\"REGIONAL\"],\"ipAddressType\":\"ipv4\"},\"minimumCompressionSize\":1024,\"disableExecuteApiEndpoint\":false}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "APIManagement.PaaS.ApiManagement",
+                "displayName": "ApiManagement",
+                "provider": "Azure",
+                "config": "{\"skuName\":\"Developer_1\",\"identity\":{\"type\":\"SystemAssigned\"},\"azureRegion\":\"westeurope\",\"publisherName\":\"Platform Team\",\"publisherEmail\":\"platform@example.com\",\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"},\"publicNetworkAccessEnabled\":true}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "APIManagement.PaaS.ApiGateway",
+                "displayName": "ApiGateway",
+                "provider": "GCP",
+                "config": "{\"name\":\"example-api-gateway\",\"apiId\":\"example-api\",\"region\":\"europe-west1\",\"apiConfigId\":\"example-api-config\"}",
+                "version": "1.0",
+                "dependencies": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "component-1778514508446-7744-2",
+        "displayName": "Container Platform",
+        "description": "Container Platform component",
+        "type": "NetworkAndCompute.PaaS.ContainerPlatform",
+        "version": "1.0",
+        "parameters": "{}",
+        "dependencies": [],
+        "links": [],
+        "outputFields": [],
+        "services": [
+          {
+            "displayName": "Kubernetes",
+            "type": "NetworkAndCompute.PaaS.Kubernetes",
+            "offers": [
+              {
+                "id": "NetworkAndCompute.PaaS.Kubernetes",
+                "displayName": "AKS",
+                "provider": "Azure",
+                "config": "{\"nodePools\":[{\"name\":\"default\",\"osType\":\"LINUX\",\"maxSurge\":1,\"diskSizeGb\":50,\"nodeTaints\":[],\"machineType\":\"Standard_B2s\",\"maxNodeCount\":3,\"minNodeCount\":1,\"agentPoolMode\":\"System\",\"maxPodsPerNode\":110,\"initialNodeCount\":1,\"autoscalingEnabled\":true}],\"podIpRange\":\"10.3.0.0/16\",\"azureRegion\":\"westeurope\",\"networkName\":\"development-host\",\"podsRangeName\":\"tier-1-pods\",\"subnetworkName\":\"compute-tier-1\",\"priorityClasses\":[{\"name\":\"default\",\"value\":1,\"description\":\"default\",\"preemptionPolicy\":\"PreemptLowerPriority\"}],\"servicesRangeName\":\"tier-1-services\",\"subnetworkIpRange\":\"10.1.0.0/22\"}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "NetworkAndCompute.PaaS.Kubernetes",
+                "displayName": "GKE",
+                "provider": "GCP",
+                "config": "{\"region\":\"europe-west1\",\"nodePools\":[{\"name\":\"default\",\"osType\":\"LINUX\",\"maxSurge\":1,\"diskSizeGb\":50,\"machineType\":\"e2-standard-8\",\"maxNodeCount\":3,\"minNodeCount\":1,\"agentPoolMode\":\"System\",\"maxPodsPerNode\":110,\"initialNodeCount\":1,\"autoscalingEnabled\":true}],\"networkName\":\"development-host\",\"podsRangeName\":\"tier-1-pods\",\"subnetworkName\":\"compute-tier-1\",\"servicesRangeName\":\"tier-1-services\"}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "NetworkAndCompute.PaaS.Kubernetes",
+                "displayName": "EKS",
+                "provider": "AWS",
+                "config": "{\"awsRegion\":\"eu-central-1\"}",
+                "version": "1.0",
+                "dependencies": []
+              }
+            ]
+          },
+          {
+            "displayName": "ContainerPlatform",
+            "type": "NetworkAndCompute.PaaS.ContainerPlatform",
+            "offers": [
+              {
+                "id": "NetworkAndCompute.PaaS.CloudRun",
+                "displayName": "Cloud Run",
+                "provider": "GCP",
+                "config": "{}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "NetworkAndCompute.PaaS.AzureAppService",
+                "displayName": "Azure App Service",
+                "provider": "Azure",
+                "config": "{}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "NetworkAndCompute.PaaS.ECS",
+                "displayName": "ECS",
+                "provider": "AWS",
+                "config": "{\"awsRegion\":\"eu-west-1\",\"containerInsights\":\"enabled\"}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "NetworkAndCompute.PaaS.AzureContainerInstanceService",
+                "displayName": "Azure Container Instance Service",
+                "provider": "Azure",
+                "config": "{}",
+                "version": "1.0",
+                "dependencies": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "component-1778514508446-7744-2-group-0",
+        "displayName": "Custom Workload",
+        "description": "Custom Workload component",
+        "type": "CustomWorkloads.CaaS.Workload",
+        "version": "1.0",
+        "parameters": "{}",
+        "dependencies": [
+          {
+            "type": "NetworkAndCompute.PaaS.ContainerPlatform",
+            "id": "component-1778514508446-7744-2"
+          }
+        ],
+        "links": [
+          {
+            "componentId": "component-1778514577817-2738-4",
+            "settings": "{}"
+          }
+        ],
+        "outputFields": [],
+        "services": [
+          {
+            "displayName": "Kubernetes Workload",
+            "type": "NetworkAndCompute.CaaS.KubernetesWorkload",
+            "offers": [
+              {
+                "id": "CustomWorkloads.CaaS.KubernetesWorkload",
+                "displayName": "Kubernetes Workload",
+                "provider": "CaaS",
+                "config": "{\"roles\":[\"role1\",\"role2\"],\"repoId\":\"repoId\",\"namespace\":\"domain-name\",\"branchName\":\"default\",\"publicSSHKey\":\"publicSSHKey\",\"sshRepositoryURI\":\"sshRepositoryURI\",\"containerPlatform\":\"container-01\",\"privateSSHKeySecretId\":\"privateSSHKeySecretId\",\"privateSSHKeyPassphraseSecretId\":\"privateSSHKeyPassphraseSecretId\"}",
+                "version": "1.0",
+                "dependencies": [
+                  "NetworkAndCompute.PaaS.Kubernetes"
+                ]
+              }
+            ]
+          },
+          {
+            "displayName": "ECS Workload",
+            "type": "NetworkAndCompute.CaaS.ECSWorkload",
+            "offers": [
+              {
+                "id": "NetworkAndCompute.CaaS.ECSService",
+                "displayName": "ECS Service",
+                "provider": "AWS",
+                "config": "{\"launchType\":\"FARGATE\",\"desiredCount\":2,\"assignPublicIp\":false,\"deploymentMaximumPercent\":200,\"deploymentMinimumHealthyPercent\":50}",
+                "version": "1.0",
+                "dependencies": [
+                  "NetworkAndCompute.PaaS.ECS"
+                ]
+              },
+              {
+                "id": "NetworkAndCompute.CaaS.ECSTaskDefinition",
+                "displayName": "ECS Task Definition",
+                "provider": "AWS",
+                "config": "{\"cpu\":\"512\",\"family\":\"app-service\",\"memory\":\"1024\",\"networkMode\":\"awsvpc\",\"taskRoleArn\":\"arn:aws:iam::123456789012:role/appTaskRole\",\"containerName\":\"app\",\"containerPort\":8080,\"containerImage\":\"123456789012.dkr.ecr.eu-west-1.amazonaws.com/app:latest\",\"executionRoleArn\":\"arn:aws:iam::123456789012:role/ecsTaskExecutionRole\",\"containerDefinitions\":[{\"name\":\"app\",\"image\":\"123456789012.dkr.ecr.eu-west-1.amazonaws.com/app:latest\",\"essential\":true,\"portMappings\":[{\"protocol\":\"tcp\",\"containerPort\":8080}],\"logConfiguration\":{\"options\":{\"awslogs-group\":\"/ecs/app-service\",\"awslogs-region\":\"eu-west-1\",\"awslogs-stream-prefix\":\"ecs\"},\"logDriver\":\"awslogs\"}}],\"requiresCompatibilities\":[\"FARGATE\"]}",
+                "version": "1.0",
+                "dependencies": [
+                  "NetworkAndCompute.PaaS.ECSService"
+                ]
+              }
+            ]
+          },
+          {
+            "displayName": "Cloud Run Workload",
+            "type": "NetworkAndCompute.CaaS.CloudRunWorkload",
+            "offers": [
+              {
+                "id": "NetworkAndCompute.CaaS.CloudRunService",
+                "displayName": "Cloud Run Service",
+                "provider": "GCP",
+                "config": "{\"cpu\":\"1\",\"name\":\"app-service\",\"port\":8080,\"image\":\"europe-west1-docker.pkg.dev/example-project/app/app:latest\",\"memory\":\"512Mi\",\"region\":\"europe-west1\",\"ingress\":\"INGRESS_TRAFFIC_ALL\",\"maxInstances\":5,\"minInstances\":0}",
+                "version": "1.0",
+                "dependencies": [
+                  "NetworkAndCompute.PaaS.CloudRun"
+                ]
+              }
+            ]
+          },
+          {
+            "displayName": "Azure WebApp Workload",
+            "type": "NetworkAndCompute.CaaS.AzureWebAppWorkload",
+            "offers": [
+              {
+                "id": "CustomWorkloads.PaaS.WebApp",
+                "displayName": "Azure Web App",
+                "provider": "Azure",
+                "config": "{\"appSettings\":{},\"azureRegion\":\"westeurope\",\"cloningInfo\":{\"overwrite\":false,\"correlationId\":\"\",\"sourceWebAppId\":\"\",\"cloneSourceControl\":false,\"hostingEnvironment\":\"\",\"appSettingsOverrides\":{},\"cloneCustomHostNames\":false,\"sourceWebAppLocation\":\"\",\"configureLoadBalancing\":false},\"certificates\":[{\"name\":\"cert-app\",\"region\":\"westeurope\",\"keyVaultId\":\"kv-secret\",\"passwordSecretId\":\"cert-password-secret\"}],\"runtimeStack\":\"\",\"configuration\":{\"limits\":{\"maxMemoryInMb\":1024,\"maxDiskSizeInMb\":100000,\"maxPercentageCpu\":0.5},\"scmType\":\"None\",\"alwaysOn\":true,\"ftpsState\":\"FtpsState.Disabled\",\"phpVersion\":\"\",\"appSettings\":{},\"javaVersion\":\"\",\"nodeVersion\":\"\",\"corsSettings\":{\"allowedOrigins\":[\"\"],\"supportCredentials\":false},\"documentRoot\":\"\",\"pushSettings\":{\"isPushEnabled\":false,\"dynamicTagsJson\":\"\",\"tagWhitelistJson\":\"\",\"tagsRequiringAuth\":\"\"},\"dotnetVersion\":\"\",\"http20Enabled\":true,\"javaContainer\":\"\",\"loadBalancing\":\"WeightedRoundRobin\",\"minTlsVersion\":\"1.2\",\"pythonVersion\":\"\",\"appCommandLine\":\"\",\"linuxFxVersion\":\"\",\"tracingOptions\":\"\",\"handlerMappings\":{\"arguments\":\"\",\"extension\":\".cshtml\",\"scriptProcessor\":\"dotnet\"},\"healthCheckPath\":\"\",\"numberOfWorkers\":1,\"websiteTimeZone\":\"UTC\",\"apiDefinitionUrl\":\"\",\"autoSwapSlotName\":\"\",\"defaultDocuments\":[\"index.html\",\"default.html\"],\"scmMinTlsVersion\":\"1.2\",\"windowsFxVersion\":\"\",\"connectionStrings\":[{\"name\":\"\",\"databaseType\":\"PostgreSQL\",\"connectionStringSecretId\":\"\"}],\"localMySqlEnabled\":false,\"powerShellVersion\":\"\",\"webSocketsEnabled\":true,\"httpLoggingEnabled\":false,\"managedPipelineMode\":\"Integrated\",\"publicNetworkAccess\":\"Enabled\",\"virtualApplications\":[{\"virtualPath\":\"\",\"physicalPath\":\"\",\"preloadEnabled\":true,\"virtualDirectories\":[{\"virtualPath\":\"\",\"physicalPath\":\"\"}]}],\"javaContainerVersion\":\"\",\"apiManagementConfigId\":\"\",\"functionAppScaleLimit\":2,\"requestTracingEnabled\":false,\"use32BitWorkerProcess\":false,\"ipSecurityRestrictions\":[{\"name\":\"\",\"action\":\"Allow\",\"headers\":{},\"priority\":100,\"ipAddress\":\"\",\"subnetMask\":\"\",\"description\":\"\"}],\"logsDirectorySizeLimit\":10000,\"preWarmedInstanceCount\":0,\"remoteDebuggingEnabled\":false,\"remoteDebuggingVersion\":\"VS2019\",\"acrUserManagedIdentityId\":\"\",\"managedServiceIdentityId\":0,\"keyVaultReferenceIdentity\":\"\",\"scmIpSecurityRestrictions\":[],\"xManagedServiceIdentityId\":0,\"detailedErrorLoggingEnabled\":false,\"minimumElasticInstanceCount\":0,\"requestTracingExpirationTime\":\"2007-12-03T10:15:30+01:00\",\"acrUseManagedIdentityCredentials\":true,\"scmIpSecurityRestrictionsUseMain\":true,\"functionsRuntimeScaleMonitoringEnabled\":false},\"customDomains\":[\"custom-sample.org\"],\"appServicePlan\":{\"name\":\"sp-app\",\"azureRegion\":\"westeurope\",\"pricingPlan\":\"Basic\",\"operatingSystem\":\"Linux\",\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"},\"zoneRedundancyEnabled\":false},\"clientCertMode\":\"Optional\",\"deploymentSlots\":[{\"name\":\"slot-app\",\"cloneSettingsFromWebApp\":true}],\"operatingSystem\":\"Linux\",\"clientCertEnabled\":false,\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"},\"publishingUsername\":\"\",\"apiManagementConfigId\":\"\",\"clientAffinityEnabled\":false,\"clientCertExclusionPaths\":\"\",\"rootManagedCertificateName\":\"\"}",
+                "version": "1.0",
+                "dependencies": [
+                  "NetworkAndCompute.PaaS.AzureAppService"
+                ]
+              }
+            ]
+          },
+          {
+            "displayName": "Azure Container Instance",
+            "type": "NetworkAndCompute.CaaS.AzureContainerInstanceWorkload",
+            "offers": [
+              {
+                "id": "CustomWorkloads.PaaS.AzureContainerInstance",
+                "displayName": "Azure Container Instance",
+                "provider": "Azure",
+                "config": "{\"cpu\":1,\"port\":8080,\"image\":\"nginx:stable-alpine3.23-perl\",\"location\":\"westeurope\",\"publicIp\":true,\"memoryInGB\":1.5,\"azureRegion\":\"westeurope\",\"dnsNameLabel\":\"\",\"restartPolicy\":\"Always\",\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"}}",
+                "version": "1.0",
+                "dependencies": [
+                  "NetworkAndCompute.PaaS.AzureContainerInstanceService"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "component-1778514577817-2738-4",
+        "displayName": "File & Blob Storage",
+        "description": "FilesAndBlobs service",
+        "type": "Storage.PaaS.FilesAndBlobs",
+        "version": "1.0",
+        "parameters": "{}",
+        "dependencies": [],
+        "links": [],
+        "outputFields": [],
+        "services": [
+          {
+            "displayName": "Storage",
+            "type": "Storage.PaaS.FilesAndBlobs",
+            "offers": [
+              {
+                "id": "Storage.PaaS.S3",
+                "displayName": "S3",
+                "provider": "AWS",
+                "config": "{\"acl\":\"private\",\"bucket\":\"example-app-bucket\",\"awsRegion\":\"eu-west-1\",\"versioning\":{\"enabled\":true},\"forceDestroy\":false,\"objectLockEnabled\":false}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "Storage.PaaS.StorageAccount",
+                "displayName": "General Purpose V2",
+                "provider": "Azure",
+                "config": "{\"sku\":\"Standard_LRS\",\"kind\":\"StorageV2\",\"type\":\"EdgeZone\",\"backup\":{\"sku\":\"Standard\",\"policy\":\"\",\"vaultName\":\"backup\",\"policyName\":\"backup-policy\",\"policyType\":\"AzureStorage\",\"vaultLocation\":\"westeurope\",\"policyLocation\":\"westeurope\",\"vaultResourceGroupName\":\"rg-backup\",\"policyResourceGroupName\":\"rg-backup\"},\"identity\":{\"type\":\"SystemAssigned\"},\"domainSid\":\"\",\"keyPolicy\":{\"keyExpirationPeriodInDays\":30},\"accessTier\":\"Hot\",\"domainGuid\":\"\",\"domainName\":\"\",\"encryption\":{\"identity\":{\"userAssignedIdentity\":\"\",\"federatedIdentityClientId\":\"\"},\"services\":{\"blob\":{\"enabled\":true,\"keyType\":\"Account\"},\"file\":{\"enabled\":true,\"keyType\":\"Account\"},\"queue\":{\"enabled\":true,\"keyType\":\"Account\"},\"table\":{\"enabled\":true,\"keyType\":\"Account\"}},\"keySource\":\"Microsoft.Storage\",\"keyVaultProperties\":{\"keyName\":\"\",\"keyVersion\":\"\",\"keyVaultUri\":\"\"},\"requireInfrastructureEncryption\":false},\"forestName\":\"\",\"accountType\":\"Computer\",\"azureRegion\":\"westeurope\",\"customDomain\":{\"name\":\"customdomain.com\",\"useSubDomainName\":false},\"isHnsEnabled\":false,\"isSftpEnabled\":false,\"isNfsV3Enabled\":false,\"networkRuleSet\":{\"bypass\":\"AzureServices\",\"ipRules\":[],\"defaultAction\":\"Allow\",\"resourceAccessRules\":[],\"virtualNetworkRules\":[]},\"samAccountName\":\"\",\"azureStorageSid\":\"\",\"dnsEndpointType\":\"Standard\",\"allowedCopyScope\":\"AAD\",\"extendedLocation\":\"\",\"minimumTlsVersion\":\"1.2\",\"netBiosDomainName\":\"\",\"routingPreference\":{\"routingChoice\":\"InternetRouting\",\"publishInternetEndpoints\":true,\"publishMicrosoftEndpoints\":false},\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"},\"isLocalUserEnabled\":false,\"publicNetworkAccess\":\"Enabled\",\"allowSharedKeyAccess\":true,\"largeFileSharesState\":\"Disabled\",\"allowBlobPublicAccess\":false,\"allowCrossTenantReplication\":false,\"defaultToOAuthAuthentication\":false,\"immutableStorageWithVersioning\":{\"enabled\":false,\"immutabilityPolicy\":{\"state\":\"Disabled\",\"allowProtectedAppendWrites\":true,\"immutabilityPeriodSinceCreationInDays\":0}},\"azureFilesIdentityBasedAuthentication\":{\"defaultSharePermission\":\"StorageFileDataSmbShareReader\",\"directoryServiceOptions\":\"AADDS\"}}",
+                "version": "1.0",
+                "dependencies": []
+              },
+              {
+                "id": "Storage.PaaS.StorageBlobContainer",
+                "displayName": "Blob Storage",
+                "provider": "Azure",
+                "config": "{\"metadata\":{},\"azureRegion\":\"westeurope\",\"publicAccess\":\"None\",\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"},\"enableNfsV3AllSquash\":false,\"enableNfsV3RootSquash\":true,\"defaultEncryptionScope\":\"$account-encryption-key\",\"denyEncryptionScopeOverride\":false,\"immutableStorageWithVersioning\":{\"enabled\":false}}",
+                "version": "1.0",
+                "dependencies": [
+                  "Storage.PaaS.StorageAccount"
+                ]
+              },
+              {
+                "id": "Storage.PaaS.FileStorage",
+                "displayName": "File Storage",
+                "provider": "Azure",
+                "config": "{\"metadata\":{},\"accessTier\":\"Premium\",\"rootSquash\":\"\",\"shareQuota\":100,\"azureRegion\":\"westeurope\",\"enabledProtocols\":\"SMB\",\"signedIdentifiers\":[{\"id\":\"myaccesspolicy\",\"accessPolicy\":{\"start\":\"2021-01-01T00:00:00.0000000Z\",\"expiry\":\"2022-01-01T00:00:00.0000000Z\",\"permission\":\"rwd\"}}],\"azureResourceGroup\":{\"name\":\"rg-app-prod\",\"region\":\"westeurope\"}}",
+                "version": "1.0",
+                "dependencies": [
+                  "Storage.PaaS.StorageAccount"
+                ]
+              },
+              {
+                "id": "Storage.PaaS.CloudStorage",
+                "displayName": "Cloud Storage",
+                "provider": "GCP",
+                "config": "{\"region\":\"europe-west1\",\"encryption\":{\"type\":\"GOOGLE_MANAGED\"},\"storageClass\":\"STANDARD\",\"versioningEnabled\":true,\"uniformBucketLevelAccess\":true}",
+                "version": "1.0",
+                "dependencies": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "interface": {
+    "operations": []
+  }
+}
